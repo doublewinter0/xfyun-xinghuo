@@ -219,9 +219,9 @@ class ChatBot:
             url: str,
             headers: dict,
             method: Method,
-            params: Optional[dict] = None,
-            json: Optional[dict] = None,
-            data: Optional[dict] = None
+            params: Optional[dict] = {},
+            json: Optional[dict] = {},
+            data: Optional[dict] = {}
     ) -> Union[List[dict], dict, bool]:
         match method:
             case Method.GET:
