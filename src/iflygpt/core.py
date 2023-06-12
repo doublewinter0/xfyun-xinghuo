@@ -2,7 +2,7 @@ import os
 from enum import Enum
 from typing import List, Optional, Union
 
-from httpx import AsyncClient, Cookies
+from httpx import AsyncClient, Client, Cookies
 
 from iflygpt.exp import LoginError, RequestError, APIConnectionError, IflyGPTError
 
@@ -39,7 +39,7 @@ class ChatBot:
     def gt_token(self):
         return self.__gt_token
 
-    async def login(self) -> dict:
+    def login(self) -> dict:
         url = 'https://sso.xfyun.cn/SSOService/login/check-account'
         headers = {
             'Host': 'sso.xfyun.cn',
@@ -50,20 +50,23 @@ class ChatBot:
             'Referer': 'https://passport.xfyun.cn'
         }
         data = {'accountName': self.__ifly_account, 'accountPwd': self.__ifly_pwd}
-        resp = await self.__session.post(url, headers=headers, data=data)
-        if resp.status_code == 200:
-            resp_json = resp.json()
-            if resp_json['code'] == 0:
-                _data = resp_json['data']
-                self.__cookies.set('ssoSessionId', _data['ssoSessionId'])
-                self.__cookies.set('account_id', _data['account_id'])
 
-                return _data
+        # resp = await self.__session.post(url, headers=headers, data=data)
+        with Client() as client:
+            resp = client.post(url, headers=headers, data=data)
+            if resp.status_code == 200:
+                resp_json = resp.json()
+                if resp_json['code'] == 0:
+                    _data = resp_json['data']
+                    self.__cookies.set('ssoSessionId', _data['ssoSessionId'])
+                    self.__cookies.set('account_id', _data['account_id'])
+
+                    return _data
+                else:
+                    raise LoginError(resp_json['desc'])
+
             else:
-                raise LoginError(resp_json['desc'])
-
-        else:
-            raise LoginError(resp.text)
+                raise LoginError(resp.text)
 
     async def get_chat_list(self) -> List[dict]:
         """
@@ -247,7 +250,7 @@ class ChatBot:
 
         elif resp.status_code == 401:
             # TODO 401 logic implementation
-            # await self.login()
+            # self.login()
             pass
         else:
             raise APIConnectionError(resp.text)
@@ -286,7 +289,7 @@ class ChatBot:
                     raise exp
             elif resp.status_code == 401:
                 # TODO 401 logic implementation
-                # await self.login()
+                # self.login()
                 pass
             else:
                 raise APIConnectionError(resp.text)

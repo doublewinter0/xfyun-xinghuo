@@ -48,9 +48,9 @@ from iflygpt.core import ChatBot
 
 async def main():
     bot = ChatBot('foo')
-    await bot.login()
+    bot.login()
 
-    print(await bot.chat(123456, '介绍一下西安市', bot.gt_token))
+    print(await bot.chat(123456, '介绍一下西安市', bot.gt_token)) # 123456 只是示例，需替换为你的会话 id
 
 
 if __name__ == '__main__':
