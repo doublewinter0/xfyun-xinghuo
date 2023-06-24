@@ -16,6 +16,15 @@ class LoginError(IflyGPTError):
         super().__init__(*args)
 
 
+class AuthError(IflyGPTError):
+    """
+    Auth error
+    """
+
+    def __init__(self, *args: object) -> None:
+        super().__init__(*args)
+
+
 class APIConnectionError(IflyGPTError):
     """
     APIConnectionError error

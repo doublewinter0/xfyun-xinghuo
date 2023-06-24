@@ -4,7 +4,7 @@ from typing import List, Optional, Union
 
 from httpx import AsyncClient, Client, Cookies
 
-from iflygpt.exp import LoginError, RequestError, APIConnectionError, IflyGPTError
+from iflygpt.exp import LoginError, AuthError, RequestError, APIConnectionError, IflyGPTError
 
 from iflygpt.util import decode
 
@@ -249,9 +249,8 @@ class ChatBot:
                 raise RequestError(resp_json['desc'])
 
         elif resp.status_code == 401:
-            # TODO 401 logic implementation
-            # self.login()
-            pass
+            # TODO 401 logic optimization
+            raise AuthError(resp.text)
         else:
             raise APIConnectionError(resp.text)
 
@@ -288,8 +287,7 @@ class ChatBot:
                 except IflyGPTError as exp:
                     raise exp
             elif resp.status_code == 401:
-                # TODO 401 logic implementation
-                # self.login()
-                pass
+                # TODO 401 logic optimization
+                raise AuthError(resp.text)
             else:
                 raise APIConnectionError(resp.text)
