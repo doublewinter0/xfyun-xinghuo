@@ -64,6 +64,18 @@ if __name__ == '__main__':
 - `iflygpt.exp.IflyGPTError: [geeError]`：**GtToken** 无效
 - 其他问题请参阅 [issues](https://github.com/doublewinter0/xfyun-xinghuo/issues)
 
+## :sparkles: Star History :sparkles:
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=doublewinter0/xfyun-xinghuo&type=Date&theme=dark" />
+  <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=doublewinter0/xfyun-xinghuo&type=Date" />
+  <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=doublewinter0/xfyun-xinghuo&type=Date" />
+</picture>
+
+## 支持我
+如果我们这个项目对你有所帮助，请给我一颗 ⭐️ 吧！
+
 ## 免责声明
 
 **本项目仅供学习交流使用，严禁用于商业用途，否则后果自负。**
+
