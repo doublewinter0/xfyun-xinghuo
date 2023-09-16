@@ -149,7 +149,8 @@ class ChatBot:
             history_list=await self.get_chat_history(chat_id)
             return history_list[-1]["historyList"][-1]["sid"]
         except:
-            return ""        
+            return ''        
+            
     async def chat(
             self,
             chat_id: int,
@@ -179,7 +180,7 @@ class ChatBot:
             'isBot': is_bot,
             'chatId': chat_id,
             'text': text,
-            'sid':await self.get_chat_sid(chat_id)
+            'sid': await self.get_chat_sid(chat_id)
             'GtToken': gt_token,
             'clientType': client_type
         }
@@ -211,7 +212,8 @@ class ChatBot:
         url = 'https://xinghuo.xfyun.cn/iflygpt-chat/u/chat_message/reAnswer'
         headers = self.__request_headers.copy()
         headers['Content-Type'] = 'application/x-www-form-urlencoded'
-        sid=await self.get_chat_sid(chat_id)
+        sid = await self.get_chat_sid(chat_id)
+        
         data = {
             'fd': fd,
             'isBot': is_bot,
