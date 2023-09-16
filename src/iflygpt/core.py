@@ -95,7 +95,7 @@ class ChatBot:
         :return：会话记录
         """
 
-        url = f'https://xinghuo.xfyun.cn/iflygpt/u/chat_history/{chat_id}'
+        url = f'https://xinghuo.xfyun.cn/iflygpt/u/chat_history/all/{chat_id}'
 
         return await self.__request(url, self.__request_headers, Method.GET)
 
@@ -140,12 +140,22 @@ class ChatBot:
         _json = {'chatListId': chat_id}
 
         return await self.__request(url, headers, Method.POST, json=_json)
-
+    async def get_chat_sid(self,chat_id: int) -> str:
+        """
+        通过会话id获取最新的机器人消息的sid
+        新会话没有消息时，返回空字符串
+        """
+        try:
+            history_list=await self.get_chat_history(chat_id)
+            return history_list[-1]["historyList"][-1]["sid"]
+        except:
+            return ""        
     async def chat(
             self,
             chat_id: int,
             text: str,
             gt_token: str,
+            sid: str ,
             fd: str = '',
             is_bot: int = 0,
             client_type: int = 1
@@ -155,6 +165,7 @@ class ChatBot:
         :param chat_id：会话 ID
         :param text：发送的文本
         :param gt_token：反爬校验 token，半小时有效(固定一个值即可，有幂等性)
+        :param sid：上条机器人消息的 sid,新会话时为空字符串
         :param fd：可选参数，目前没发现有什么用>_<
         :param is_bot：可选参数，目前没发现有什么用>_<
         :param client_type：固定是 1 即可
