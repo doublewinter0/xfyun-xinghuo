@@ -202,7 +202,7 @@ class ChatBot:
         :param text：发送的文本
         :param gt_token：反爬校验 token，半小时有效(固定一个值即可，有幂等性)
         :param fd：可选参数，目前没发现有什么用>_<
-        :param sid：可选参数，目前没发现有什么用>_<
+        :param sid：默认即可
         :param is_bot：可选参数，目前没发现有什么用>_<
         :param client_type：固定是 1 即可
         :return：AI 响应报文
@@ -211,7 +211,7 @@ class ChatBot:
         url = 'https://xinghuo.xfyun.cn/iflygpt-chat/u/chat_message/reAnswer'
         headers = self.__request_headers.copy()
         headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
+        sid=self.get_chat_sid(chat_id)
         data = {
             'fd': fd,
             'isBot': is_bot,
