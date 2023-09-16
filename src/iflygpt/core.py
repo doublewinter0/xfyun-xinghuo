@@ -140,6 +140,7 @@ class ChatBot:
         _json = {'chatListId': chat_id}
 
         return await self.__request(url, headers, Method.POST, json=_json)
+        
     async def get_chat_sid(self,chat_id: int) -> str:
         """
         通过会话id获取最新的机器人消息的sid
