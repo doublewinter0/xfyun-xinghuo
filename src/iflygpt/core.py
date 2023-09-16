@@ -211,7 +211,7 @@ class ChatBot:
         url = 'https://xinghuo.xfyun.cn/iflygpt-chat/u/chat_message/reAnswer'
         headers = self.__request_headers.copy()
         headers['Content-Type'] = 'application/x-www-form-urlencoded'
-        sid=self.get_chat_sid(chat_id)
+        sid=await self.get_chat_sid(chat_id)
         data = {
             'fd': fd,
             'isBot': is_bot,
